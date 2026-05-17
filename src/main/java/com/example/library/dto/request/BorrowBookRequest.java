@@ -1,0 +1,17 @@
+package com.example.library.dto.request;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class BorrowBookRequest {
+    
+    private String borrowerName;
+    private String borrowerContact;
+    private String borrowerNotes;
+}
