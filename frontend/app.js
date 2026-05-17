@@ -742,6 +742,14 @@ async function loadAdminUsers() {
                 <td class="py-3 text-text-secondary text-sm">
                     ${new Date(user.createdAt).toLocaleDateString()}
                 </td>
+                <td class="py-3">
+                    ${user.id !== currentUser.id && user.isActive ? `
+                        <button onclick="deleteUser(${user.id}, '${user.name}')"
+                                class="px-3 py-1 text-sm text-red-600 hover:bg-red-50 rounded transition">
+                            Remove
+                        </button>
+                    ` : '<span class="text-gray-400 text-sm">-</span>'}
+                </td>
             </tr>
         `).join('');
     } catch (error) {
@@ -776,6 +784,29 @@ async function loadAdminBorrowings() {
         `).join('');
     } catch (error) {
         console.error('Error loading borrowings:', error);
+    }
+}
+
+async function deleteUser(userId, userName) {
+    if (!confirm(`Are you sure you want to remove user "${userName}"? This will deactivate their account.`)) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/admin/users/${userId}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${authToken}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) throw new Error('Failed to remove user');
+
+        alert(`User "${userName}" has been removed successfully.`);
+        await loadAdminUsers(); // Reload the users table
+    } catch (error) {
+        alert('Error removing user: ' + error.message);
     }
 }
 
