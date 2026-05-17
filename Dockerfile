@@ -1,6 +1,10 @@
 # Build stage
 FROM eclipse-temurin:17-jdk AS builder
 
+# Force rebuild by adding a timestamp
+ARG CACHEBUST=1
+RUN echo "Cache bust: $CACHEBUST"
+
 WORKDIR /build
 
 # Copy gradle wrapper and config
