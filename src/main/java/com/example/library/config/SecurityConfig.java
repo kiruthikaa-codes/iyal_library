@@ -33,6 +33,7 @@ public class SecurityConfig {
         http
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/", "/index.html", "/*.html", "/*.css", "/*.js", "/*.png", "/*.jpg", "/*.ico", "/*.svg").permitAll()
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
@@ -42,7 +43,7 @@ public class SecurityConfig {
             )
             .authenticationProvider(authenticationProvider())
             .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-        
+
         return http.build();
     }
     
