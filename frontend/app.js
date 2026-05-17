@@ -637,6 +637,11 @@ async function showAdminPage() {
     document.getElementById('authForms').classList.add('hidden');
     document.getElementById('dashboard').classList.add('hidden');
     document.getElementById('adminPanel').classList.remove('hidden');
+    document.getElementById('authSection').classList.add('hidden');
+    document.getElementById('userSection').classList.remove('hidden');
+
+    // Show admin button in nav
+    document.getElementById('adminNavBtn').classList.remove('hidden');
 
     // Save current page
     localStorage.setItem('currentPage', 'admin');
