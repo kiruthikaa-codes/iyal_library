@@ -21,8 +21,11 @@ COPY src src
 RUN mkdir -p src/main/resources/static
 COPY frontend/* src/main/resources/static/
 
-# Build the application
-RUN ./gradlew clean bootJar --no-daemon
+# Force rebuild - clear gradle cache
+RUN rm -rf /root/.gradle/caches
+
+# Build the application (clean build to avoid cache)
+RUN ./gradlew clean bootJar --no-daemon --no-build-cache
 
 # List what was built
 RUN echo "=== Built JAR files ===" && ls -lh /build/build/libs/
