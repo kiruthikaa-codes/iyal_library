@@ -331,7 +331,10 @@ function createBookCard(book, simple = false) {
         <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition overflow-hidden cursor-pointer" onclick="showBookDetail(${book.id})">
             <div class="aspect-[2/3] bg-bg-secondary flex items-center justify-center">
                 ${book.coverImageUrl ?
-                    `<img src="${book.coverImageUrl}" alt="${book.title}" class="w-full h-full object-cover">` :
+                    `<img src="${book.coverImageUrl}" alt="${book.title}" class="w-full h-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                     <div class="w-full h-full flex items-center justify-center" style="display:none;">
+                        <svg class="w-12 h-12 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                     </div>` :
                     `<svg class="w-12 h-12 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>`
                 }
             </div>
@@ -598,7 +601,7 @@ async function addBook(event) {
     // Add image if provided
     const imageFile = document.getElementById('bookImage').files[0];
     if (imageFile) {
-        formData.append('image', imageFile);
+        formData.append('coverImage', imageFile);
     }
 
     try {

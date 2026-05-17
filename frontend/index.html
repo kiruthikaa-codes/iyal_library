@@ -2,8 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>iyal - Family Library</title>
+    <style>
+        /* Mobile responsiveness fixes */
+        body {
+            overflow-x: hidden;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            table {
+                font-size: 0.875rem;
+            }
+        }
+    </style>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -38,9 +53,9 @@
 <body class="bg-bg-primary text-text-primary min-h-screen">
     <!-- Header -->
     <header class="bg-white shadow-sm border-b border-gray-200">
-        <div class="mx-auto px-8 py-4">
-            <div class="flex items-center justify-between">
-                <h1 class="text-3xl font-serif font-bold text-accent-brown">iyal</h1>
+        <div class="mx-auto px-4 sm:px-8 py-4 max-w-7xl">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+                <h1 class="text-2xl sm:text-3xl font-serif font-bold text-accent-brown">iyal</h1>
                 <div id="authSection" class="flex gap-4">
                     <button onclick="showLogin()" class="px-4 py-2 text-accent-brown hover:bg-bg-secondary rounded-lg transition">
                         Login
@@ -78,7 +93,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="mx-auto px-8 py-8">
+    <main class="mx-auto px-4 sm:px-8 py-8 max-w-7xl">
         <!-- Login/Register Forms -->
         <div id="authForms" class="max-w-md mx-auto mt-12">
             <!-- Login Form -->
