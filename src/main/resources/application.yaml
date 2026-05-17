@@ -3,9 +3,7 @@ spring:
     name: iyal
 
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/iyal_db}
-    username: ${DB_USERNAME:kiruthikam}
-    password: ${DB_PASSWORD:}
+    url: ${JDBC_DATABASE_URL:${DATABASE_URL:jdbc:postgresql://localhost:5432/iyal_db}}
     driver-class-name: org.postgresql.Driver
 
   jpa:
