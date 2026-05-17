@@ -26,33 +26,40 @@ public class AuthService {
     
     @Transactional
     public AuthResponse register(RegisterRequest request) {
-        // Check if email already exists
-        if (userRepository.existsByEmail(request.getEmail())) {
-            throw new BadRequestException("Email already registered");
+        try {
+            // Check if email already exists
+            if (userRepository.existsByEmail(request.getEmail())) {
+                throw new BadRequestException("Email already registered");
+            }
+
+            // Create new user
+            User user = User.builder()
+                    .name(request.getName())
+                    .email(request.getEmail())
+                    .password(passwordEncoder.encode(request.getPassword()))
+                    .role(User.Role.USER)
+                    .isProfilePublic(true)
+                    .isActive(true)
+                    .build();
+
+            User savedUser = userRepository.save(user);
+
+            // Generate JWT token
+            String token = jwtUtil.generateToken(savedUser.getEmail());
+
+            return new AuthResponse(
+                    token,
+                    savedUser.getId(),
+                    savedUser.getName(),
+                    savedUser.getEmail(),
+                    savedUser.getRole()
+            );
+        } catch (BadRequestException e) {
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BadRequestException("Registration failed: " + e.getMessage());
         }
-        
-        // Create new user
-        User user = User.builder()
-                .name(request.getName())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .role(User.Role.USER)
-                .isProfilePublic(true)
-                .isActive(true)
-                .build();
-        
-        User savedUser = userRepository.save(user);
-        
-        // Generate JWT token
-        String token = jwtUtil.generateToken(savedUser.getEmail());
-        
-        return new AuthResponse(
-                token,
-                savedUser.getId(),
-                savedUser.getName(),
-                savedUser.getEmail(),
-                savedUser.getRole()
-        );
     }
     
     @Transactional(readOnly = true)
