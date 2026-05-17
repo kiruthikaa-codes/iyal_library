@@ -9,6 +9,16 @@
         body {
             overflow-x: hidden;
         }
+
+        /* Hide scrollbar for tabs */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding-left: 1rem;
@@ -146,9 +156,9 @@
         <!-- Dashboard (shown when logged in) -->
         <div id="dashboard" class="hidden">
             <!-- Personal Reading Section -->
-            <div class="mb-8">
-                <h2 class="text-3xl font-serif font-bold mb-2">Welcome back, <span id="dashboardUserName"></span></h2>
-                <p class="text-text-secondary">Your reading journey</p>
+            <div class="mb-6 sm:mb-8">
+                <h2 class="text-2xl sm:text-3xl font-serif font-bold mb-2">Welcome back, <span id="dashboardUserName"></span></h2>
+                <p class="text-sm sm:text-base text-text-secondary">Your reading journey</p>
             </div>
 
             <!-- Reading Stats -->
@@ -169,41 +179,41 @@
 
             <!-- My Reading Tabs -->
             <div class="bg-white rounded-xl shadow-sm mb-8">
-                <div class="flex border-b border-gray-200">
-                    <button onclick="showReadingTab('reading')" id="tabReading" class="px-6 py-3 font-medium text-accent-brown border-b-2 border-accent-brown">
+                <div class="flex overflow-x-auto border-b border-gray-200 scrollbar-hide">
+                    <button onclick="showReadingTab('reading')" id="tabReading" class="px-4 sm:px-6 py-3 font-medium text-sm sm:text-base whitespace-nowrap text-accent-brown border-b-2 border-accent-brown">
                         Currently Reading
                     </button>
-                    <button onclick="showReadingTab('wantToRead')" id="tabWantToRead" class="px-6 py-3 font-medium text-text-secondary hover:text-accent-brown border-b-2 border-transparent">
+                    <button onclick="showReadingTab('wantToRead')" id="tabWantToRead" class="px-4 sm:px-6 py-3 font-medium text-sm sm:text-base whitespace-nowrap text-text-secondary hover:text-accent-brown border-b-2 border-transparent">
                         Want to Read
                     </button>
-                    <button onclick="showReadingTab('finished')" id="tabFinished" class="px-6 py-3 font-medium text-text-secondary hover:text-accent-brown border-b-2 border-transparent">
+                    <button onclick="showReadingTab('finished')" id="tabFinished" class="px-4 sm:px-6 py-3 font-medium text-sm sm:text-base whitespace-nowrap text-text-secondary hover:text-accent-brown border-b-2 border-transparent">
                         Finished
                     </button>
-                    <button onclick="showReadingTab('browse')" id="tabBrowse" class="px-6 py-3 font-medium text-text-secondary hover:text-accent-brown border-b-2 border-transparent">
+                    <button onclick="showReadingTab('browse')" id="tabBrowse" class="px-4 sm:px-6 py-3 font-medium text-sm sm:text-base whitespace-nowrap text-text-secondary hover:text-accent-brown border-b-2 border-transparent">
                         Browse All
                     </button>
                 </div>
 
-                <div class="p-6">
+                <div class="p-4 sm:p-6">
                     <!-- Currently Reading -->
-                    <div id="readingContent" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                    <div id="readingContent" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
                         <!-- Books will be loaded here -->
                     </div>
 
                     <!-- Want to Read -->
-                    <div id="wantToReadContent" class="hidden grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                    <div id="wantToReadContent" class="hidden grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
                         <!-- Books will be loaded here -->
                     </div>
 
                     <!-- Finished -->
-                    <div id="finishedContent" class="hidden grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                    <div id="finishedContent" class="hidden grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
                         <!-- Books will be loaded here -->
                     </div>
 
                     <!-- Browse All -->
                     <div id="browseContent" class="hidden">
-                        <h3 class="text-xl font-serif font-semibold mb-6">All Books</h3>
-                        <div id="booksGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                        <h3 class="text-lg sm:text-xl font-serif font-semibold mb-4 sm:mb-6">All Books</h3>
+                        <div id="booksGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
                             <!-- Books will be loaded here -->
                         </div>
                     </div>
@@ -212,8 +222,8 @@
 
             <!-- Family Activity -->
             <div class="mb-8">
-                <h3 class="text-2xl font-serif font-semibold mb-4">What Your Family is Reading</h3>
-                <div id="familyReading" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                <h3 class="text-xl sm:text-2xl font-serif font-semibold mb-4">What Your Family is Reading</h3>
+                <div id="familyReading" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
                     <!-- Family reading will be loaded here -->
                 </div>
             </div>
@@ -336,14 +346,14 @@
 
             <!-- Tabs -->
             <div class="bg-white rounded-xl shadow-sm mb-6">
-                <div class="flex border-b border-gray-200">
-                    <button onclick="showAdminTab('books')" id="adminTabBooks" class="px-6 py-3 font-medium text-accent-brown border-b-2 border-accent-brown">
+                <div class="flex overflow-x-auto border-b border-gray-200 scrollbar-hide">
+                    <button onclick="showAdminTab('books')" id="adminTabBooks" class="px-4 sm:px-6 py-3 font-medium text-sm sm:text-base whitespace-nowrap text-accent-brown border-b-2 border-accent-brown">
                         Manage Books
                     </button>
-                    <button onclick="showAdminTab('users')" id="adminTabUsers" class="px-6 py-3 font-medium text-text-secondary hover:text-accent-brown border-b-2 border-transparent">
+                    <button onclick="showAdminTab('users')" id="adminTabUsers" class="px-4 sm:px-6 py-3 font-medium text-sm sm:text-base whitespace-nowrap text-text-secondary hover:text-accent-brown border-b-2 border-transparent">
                         Manage Users
                     </button>
-                    <button onclick="showAdminTab('borrowings')" id="adminTabBorrowings" class="px-6 py-3 font-medium text-text-secondary hover:text-accent-brown border-b-2 border-transparent">
+                    <button onclick="showAdminTab('borrowings')" id="adminTabBorrowings" class="px-4 sm:px-6 py-3 font-medium text-sm sm:text-base whitespace-nowrap text-text-secondary hover:text-accent-brown border-b-2 border-transparent">
                         Currently Borrowed
                     </button>
                 </div>
