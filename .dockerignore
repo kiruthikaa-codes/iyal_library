@@ -1,0 +1,31 @@
+# Git
+.git
+.gitignore
+
+# Build outputs
+build/
+.gradle/
+*.class
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Environment
+.env
+.env.local
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation
+*.md
+!README.md
+
+# Frontend templates (not needed for build)
+frontend-templates/
