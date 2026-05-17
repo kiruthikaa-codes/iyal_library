@@ -45,7 +45,10 @@ async function login(event) {
             body: JSON.stringify({ email, password })
         });
 
-        if (!response.ok) throw new Error('Login failed');
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || 'Invalid credentials');
+        }
 
         const data = await response.json();
         authToken = data.token;

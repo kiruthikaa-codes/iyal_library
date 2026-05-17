@@ -23,30 +23,32 @@ public class DataInitializer implements CommandLineRunner {
     
     private void createDefaultAdminIfNotExists() {
         String adminEmail = "admin@iyal.com";
-        
-        if (!userRepository.existsByEmail(adminEmail)) {
-            User admin = User.builder()
-                    .name("Admin")
-                    .email(adminEmail)
-                    .password(passwordEncoder.encode("admin123"))
-                    .role(User.Role.ADMIN)
-                    .isProfilePublic(true)
-                    .isActive(true)
-                    .build();
-            
-            userRepository.save(admin);
-            log.info("✅ Default admin user created: admin@iyal.com / admin123");
-        } else {
-            // Update existing user to admin if needed
-            userRepository.findByEmail(adminEmail).ifPresent(user -> {
-                if (user.getRole() != User.Role.ADMIN) {
-                    user.setRole(User.Role.ADMIN);
-                    userRepository.save(user);
-                    log.info("✅ Updated user to ADMIN role: admin@iyal.com");
-                } else {
-                    log.info("✅ Admin user already exists: admin@iyal.com");
-                }
-            });
-        }
+        String adminPassword = "admin123";
+
+        // Check if admin user exists
+        userRepository.findByEmail(adminEmail).ifPresentOrElse(
+            user -> {
+                // Update existing user: reset password and ensure ADMIN role
+                user.setPassword(passwordEncoder.encode(adminPassword));
+                user.setRole(User.Role.ADMIN);
+                user.setIsActive(true);
+                userRepository.save(user);
+                log.info("✅ Updated admin user: admin@iyal.com / admin123 (password reset)");
+            },
+            () -> {
+                // Create new admin user
+                User admin = User.builder()
+                        .name("Admin")
+                        .email(adminEmail)
+                        .password(passwordEncoder.encode(adminPassword))
+                        .role(User.Role.ADMIN)
+                        .isProfilePublic(true)
+                        .isActive(true)
+                        .build();
+
+                userRepository.save(admin);
+                log.info("✅ Created new admin user: admin@iyal.com / admin123");
+            }
+        );
     }
 }
