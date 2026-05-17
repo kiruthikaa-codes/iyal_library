@@ -35,6 +35,7 @@ public class SecurityConfig {
         http
             .cors(cors -> cors.configurationSource(corsConfigurationSource))
             .csrf(AbstractHttpConfigurer::disable)
+            .anonymous(anonymous -> anonymous.principal("anonymousUser"))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/index.html", "/**/*.html", "/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.ico", "/**/*.svg").permitAll()
                 .requestMatchers("/auth/**").permitAll()
