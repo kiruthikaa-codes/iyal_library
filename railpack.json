@@ -1,9 +1,0 @@
-{
-  "runtime": {
-    "java": "17"
-  },
-  "build": {
-    "tool": "gradle",
-    "command": "bootJar"
-  }
-}
