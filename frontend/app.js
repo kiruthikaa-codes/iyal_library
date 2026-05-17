@@ -50,11 +50,16 @@ async function login(event) {
         const data = await response.json();
         authToken = data.token;
         currentUser = { id: data.id, name: data.name, email: data.email, role: data.role };
-        
+
         localStorage.setItem('token', authToken);
         localStorage.setItem('user', JSON.stringify(currentUser));
-        
-        showDashboard();
+
+        // Show admin page if user is admin, otherwise dashboard
+        if (currentUser.role === 'ADMIN') {
+            showAdminPage();
+        } else {
+            showDashboard();
+        }
     } catch (error) {
         alert('Login failed: ' + error.message);
     }
