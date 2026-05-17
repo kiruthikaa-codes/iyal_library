@@ -32,7 +32,15 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         // Skip JWT validation for public endpoints
         String path = request.getRequestURI();
-        if (path.startsWith("/auth/")) {
+        if (path.startsWith("/auth/") ||
+            path.equals("/") ||
+            path.endsWith(".html") ||
+            path.endsWith(".css") ||
+            path.endsWith(".js") ||
+            path.endsWith(".png") ||
+            path.endsWith(".jpg") ||
+            path.endsWith(".ico") ||
+            path.endsWith(".svg")) {
             filterChain.doFilter(request, response);
             return;
         }
