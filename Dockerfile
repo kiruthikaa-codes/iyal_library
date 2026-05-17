@@ -16,7 +16,10 @@ RUN ./gradlew dependencies --no-daemon || true
 
 # Copy source code
 COPY src src
-COPY frontend frontend
+
+# Copy frontend files into static resources
+RUN mkdir -p src/main/resources/static
+COPY frontend/* src/main/resources/static/
 
 # Build the application
 RUN ./gradlew clean bootJar --no-daemon
